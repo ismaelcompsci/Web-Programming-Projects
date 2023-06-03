@@ -7,7 +7,7 @@ import PlayButton from "./PlayButton";
 
 interface SongItemProps {
   data: Song;
-  onClick: (id: string) => {};
+  onClick: (id: string) => void;
 }
 
 const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {

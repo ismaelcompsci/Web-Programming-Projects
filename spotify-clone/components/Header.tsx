@@ -12,6 +12,7 @@ import { useUser } from "@/hooks/useUser";
 import Button from "./Button";
 import { FaUserAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
+import usePlayer from "@/hooks/usePlayer";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const authModal = useAuthModal();
   const router = useRouter();
+  const player = usePlayer();
 
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
@@ -28,7 +30,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const handleLogout = async () => {
     //handle logout
     const { error } = await supabaseClient.auth.signOut();
-    // reset any playing songs
+
+    player.reset();
     router.refresh();
 
     if (error) {
